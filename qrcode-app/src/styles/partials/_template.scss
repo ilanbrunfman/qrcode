@@ -1,0 +1,42 @@
+@use "variables" as var;
+
+.banner{
+    background-color: #eee;
+}
+
+h1,
+.heading{ 
+    font-size: clamp(3.2rem, -0.875rem + 8.333vw, 4.4rem);
+    font-weight: bold;
+}
+
+h2,
+.title{
+    font-size: clamp(2.4rem, -0.875rem + 8.333vw, 3.2rem);
+    font-weight: 600;
+}
+
+h3,
+.sub-title{
+    font-size: clamp(1.6rem, -0.875rem + 8.333vw, 2.4rem);
+    font-weight: 500;
+}
+
+h4{
+    font-size: clamp(1.6rem, -0.875rem + 8.333vw, 1.6rem);
+}
+
+h5{
+    font-size: clamp(1.4rem, -0.875rem + 8.333vw, 1.4rem);
+}
+
+h6,
+.tiny{
+    font-size: clamp(1.2rem, -0.875rem + 8.333vw, 1.3rem);
+}
+
+p,
+.para{
+    font-size: clamp(1.4rem, -0.875rem + 8.333vw, 1.6rem);
+    font-weight: 400;
+}
