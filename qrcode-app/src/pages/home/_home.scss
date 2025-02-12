@@ -1,0 +1,68 @@
+@use "@/styles/partials/variables" as var;
+
+.home{
+    // background-color: pink;
+
+    .form{
+        &-field{
+            position: relative;
+
+            input{
+                padding: 20px 20px;
+                border-radius: 5px;
+                border: solid 1px var(--copy);
+                background-color: transparent;
+                min-width: 320px;
+                font-size: 18px;
+                transition: all 0.5s ease;
+
+                &.focused{
+                    padding-top: 30px;
+                    padding-bottom: 10px;
+                }
+
+                &.error{
+                    border: solid 1px #d24345 !important;
+                }
+
+            }
+            input:is(:-webkit-autofill, :autofill) {
+                border: 1px solid var(--copy);
+                // -webkit-text-fill-color: var(--white);
+                -webkit-box-shadow: 0 0 0px 1000px rgba(#000,0) inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            label{
+                position: absolute;
+                z-index: -1;
+                top: 24px;
+                left: 20px;
+                font-size: 16px;
+                transition: all 0.5s ease;
+
+                &.focused{
+                    top: 10px;
+                    font-size: 12px;
+                }
+
+                &.error{
+                    color: #d24345;
+                }
+            }
+
+            button{
+                display: flex;
+                padding: 16px 28px 18px 28px;
+                border-radius: 5px;
+                background-color: rgba(#000, 1.0);
+                transition: all 0.25s ease;
+
+                &:hover{
+                    background-color: rgba(#000, 0.5);
+                }
+            }
+
+        }
+    }
+}

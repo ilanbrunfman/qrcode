@@ -65,7 +65,7 @@ button {
 }
 
 .container{
-    max-width: var.$max-width;
+    width: min(100%, var.$max-width);
     margin-inline: auto;
     padding-inline: 3.0rem;
   
@@ -93,6 +93,10 @@ button {
     @media (min-width: var.$md) { &-md { &-grid{ display: grid; } &-flex{ display: flex; } &-block{ display: block; } &-none{ display: none; } }}
     @media (min-width: var.$lg) { &-lg { &-grid{ display: grid; } &-flex{ display: flex; } &-block{ display: block; } &-none{ display: none; } }}
     @media (min-width: var.$xl) { &-xl { &-grid{ display: grid; } &-flex{ display: flex; } &-block{ display: block; } &-none{ display: none; } }}
+}
+
+.col{
+    &-auto{ flex: 0 0 auto; width: auto;  } &-1{ flex: 0 0 auto; width: 10%;  } &-2{ flex: 0 0 auto; width: 20%;  } &-3{ flex: 0 0 auto; width: 25%;  } &-4{ flex: 0 0 auto; width: 33%;  } &-5{ flex: 0 0 auto; width: 40%;  } &-6{ flex: 0 0 auto; width: 50%;  } &-7{ flex: 0 0 auto; width: 60%;  } &-8{ flex: 0 0 auto; width: 66%;  } &-9{ flex: 0 0 auto; width: 75%;  } &-10{ flex: 0 0 auto; width: 80%;  } &-11{ flex: 0 0 auto; width: 90%;  } &-12{ flex: 0 0 auto; width: 100%;  }
 }
 
 .grid{

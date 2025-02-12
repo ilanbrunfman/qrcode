@@ -5,12 +5,14 @@
     --whiteRGB          : 40, 40, 40;
     --black             : #202124;
     --blackRGB          : 255, 255, 255;
-
+    --copy             : #5c5c5c;
+    
     @media (prefers-color-scheme: light) {
         --white             : #ffffff; // #fafbfc;
         --whiteRGB          : 250, 251, 252;
         --black             : #213547;
         --blackRGB          : 32, 33, 36;
+        --copy             : #9a9a9a;
     }
 
     

@@ -40,3 +40,9 @@ p,
     font-size: clamp(1.4rem, -0.875rem + 8.333vw, 1.6rem);
     font-weight: 400;
 }
+
+.clr{
+    &-white{ color: var(--white); }
+    &-black{ color: var(--black); }
+    &-copy{ color: var(--copy); }
+}
