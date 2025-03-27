@@ -15,6 +15,7 @@
                 min-width: 320px;
                 font-size: 18px;
                 transition: all 0.5s ease;
+                display: block;
 
                 &.focused{
                     padding-top: 30px;
@@ -51,6 +52,13 @@
                 }
             }
 
+            .errorMsg{
+                position: absolute;
+                top: -16px;
+                height: 24px;
+                color: #d24345;
+            }
+
             button{
                 display: flex;
                 padding: 16px 28px 18px 28px;
@@ -64,6 +72,38 @@
                 }
             }
 
+        }
+    }
+
+    .qrcode{
+        width: 240px !important;
+        height: 240px !important;
+
+        box-shadow: 
+            0px 0px 24px -4px rgba(#000, 0.25);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-inline: auto;
+
+        img, canvas{
+            width: 240px !important;
+            height: 240px !important;
+        }
+    }
+
+    .btn{
+        &-download{
+            // display: flex;
+            padding: 16px 28px 18px 28px;
+            border-radius: 5px;
+            background-color: rgba(#000, 1.0);
+            transition: all 0.25s ease;
+            color: #fff;
+            font-size: 14px;
+
+            &:hover{
+                background-color: rgba(#000, 0.5);
+            }
         }
     }
 }

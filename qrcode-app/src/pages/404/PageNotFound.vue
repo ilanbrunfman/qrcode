@@ -1,14 +1,18 @@
 <script setup>
+import { ref, computed, onMounted} from 'vue'
 // components
 import Wrapper from '@/components/wrapper/Wrapper.vue'
 
-import './_pageNotFound.scss'
+// import './_pageNotFound.scss'
+
+// onMounted(() => {
+//     console.log('test')
+// })
+
+const value = ref({
+    name: 'ilan',
+})
 </script>
 
-<template>
-    <Wrapper class="page-not-found">
-        <template #body>
-            <h1>Page not Found</h1>
-        </template>
-    </Wrapper>
-</template>
+<template src="./PageNotFound.html" />
+<style src="./PageNotFound.scss" />
