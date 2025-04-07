@@ -1,0 +1,39 @@
+// fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-enter,
+.fade-enter-active {
+    opacity: 0;
+}
+
+.fade-enter-to {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-leave-to {
+    opacity: 0;
+}
+
+// Slide up from bottom
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: transform 0.5s ease-out;
+}
+
+.slide-up-enter,
+.slide-up-enter-active {
+    transform: translateY(100%);
+}
+
+.slide-up-enter-to {
+    transform: translateY(0);
+    transition: transform 0.5s ease-out;
+}
+
+.slide-up-leave-to {
+    transform: translateY(100%);
+}

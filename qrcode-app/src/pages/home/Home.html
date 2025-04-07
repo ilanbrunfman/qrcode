@@ -1,0 +1,76 @@
+<Wrapper class="home">
+    <template #body>
+        <div class="container">
+
+            <transition name="fade" mode="out-in">
+                <div v-if="!qrCodeImage" class="row">
+
+                    <div class="col-12 col-md-8 mx-auto">
+                        <h2 class="mb-4 text-center">Create your own QR code in seconds</h2>
+                        <form class="form" @submit.prevent>
+                            <div :class="['form-field mb-1 d-flex justify-content-between', errorValidation.active ? 'error' : '']">
+                                <span v-if="errorValidation.active" class="errorMsg">Invalid URL</span>
+                                <input 
+                                    type="text" 
+                                    id="url"
+                                    placeholder=""
+                                    autocomplete="url" 
+                                    v-model="qrCodeUrl"
+                                    @focus="onFocus" @blur="onBlur"
+                                    :class="['', isFocused ? 'focused' : '', errorValidation.active ? 'error' : '']"
+                                />
+                                <label :class="['', isFocused ? 'focused' : '', errorValidation.active ? 'error' : '']">Enter your website link</label>
+                                <button class="btn btn-submit mx-auto" @click="createQRCode()">
+                                    Create QR Code
+                                </button>
+                                <!-- <span v-if="errorValidation.active" v-html="errorValidation.msg" class=""></span> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <h5 class="clr-copy">www.example.com</h5>
+                                </div>
+                            </div>
+    
+                            
+                            <div class="form-field d-none">
+                                <button class="btn btn-submit mx-auto" @click="createQRCode()">
+                                    Create QR Code
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div v-else class="row">
+                    <div class="col-12 col-md-8 mx-auto">
+                        <div v-if="qrCodeImage" class="showcase-qrcode mb-2" id="rhombus" v-html="qrCodeImage"></div>
+                        <h2 class="mb-4 text-center" v-html="qrCodeUrl"></h2>
+                    </div>
+                    <div class="col-12 col-md-8 mx-auto mb-3" v-if="qrCodeDownload">
+                        <div class="items">
+                            <div 
+                                v-for="(item, index) in items" 
+                                :key="index" 
+                                :class="['item', item.class, item.active ? 'item-selected' : 'item-disable']" 
+                                :title="`Donwload ${item.html}`"
+                            >
+                                <div v-if="qrCodeImage" class="qrcode" id="rhombus" v-html="qrCodeImage"></div>
+                                <!-- <canvas id="canvas"></canvas> -->
+                                <label class="" v-html="item.html"></label>
+                                <button class="btn-download-icon" @click="download(item)" >
+                                    <DownloadIcon/>
+                                </button>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8 mx-auto">
+                        <button class="btn mx-auto" @click="reset()">Reset</button>
+                    </div>
+                </div>
+            </transition>
+
+        </div>
+    </template>
+</Wrapper>
+

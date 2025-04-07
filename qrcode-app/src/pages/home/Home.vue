@@ -1,8 +1,12 @@
 <script setup>
-import QRCode from 'qrcode'
+import QRCode from 'qrcode' 
+// https://www.youtube.com/watch?v=X6MFUagtKiQ&t=334s&ab_channel=dcode 
+// https://www.npmjs.com/package/qrcode#todataurltext-options-cberror-url
 import { ref, computed, onMounted} from 'vue'
 // components
 import Wrapper from '@/components/wrapper/Wrapper.vue'
+
+import DownloadIcon from '@/assets/icons/download.vue'
 
 import './Home.scss'
  
@@ -15,9 +19,9 @@ const isFocused = ref(false)
 const errorValidation = ref({ active: false, msg: '' })
 const URL_Validation = ref(false)
 
-const buttons = ref([
-    { id: 'downloadPNGBtn', type: 'png', class: ``, html: `Download .png`, },
-    { id: 'downloadSVGBtn', type: 'svg', class: ``, html: `Download .svg`, }
+const items = ref([
+    { id: 'downloadPNGBtn', active: true, type: 'png', class: ``, html: `QRcode.png`, tooltip: 'Download QRcode.png' },
+    { id: 'downloadSVGBtn', active: false, type: 'svg', class: ``, html: `QRcode.svg`, tooltip: 'Download QRcode.svg' }
 ])
 
 // onMounted(() => {
@@ -67,24 +71,24 @@ const createQRCode = () => {
 
         // With promises 
         QRCode.toDataURL(qrCodeUrl.value)
-            .then(url => {
-                qrCodeDownload.value = url
-                console.log('URL: ', url)
+            .then(dataUrl => {
+                qrCodeDownload.value = dataUrl
+                console.log('Data URL: ', dataUrl)
             })
             .catch(err => {
                 console.error(err)
             })
 
         // canvas    
-        QRCode.toCanvas(
-            document.getElementById('canvas'),
-            qrCodeUrl.value, 
-            { toSJISFunc: QRCode.toSJIS }, 
-            function (error) {
-                if (error) console.error(error)
-                console.log('success!', QRCode)
-            }
-        )
+        // QRCode.toCanvas(
+        //     document.getElementById('canvas'),
+        //     qrCodeUrl.value, 
+        //     { toSJISFunc: QRCode.toSJIS }, 
+        //     function (error) {
+        //         if (error) console.error(error)
+        //         console.log('toCanvas success!', QRCode)
+        //     }
+        // )
 
         // SVG
         QRCode.toString(qrCodeUrl.value, { type:'svg' }, 
@@ -104,17 +108,24 @@ const createQRCode = () => {
         // }
         
         errorValidation.value = { active: false, msg: '', }
-        qrCodeUrl.value = ''
+        // qrCodeUrl.value = ''
         onBlur()
     }
 
 }
 
-const download = (btn) => {
+const reset = () => {
+    console.log('reset has been click')
+    qrCodeUrl.value = ''
+    isFocused.value = false
+    qrCodeImage.value = ''
+}
 
-    if( btn.type === 'svg' ){
+const download = (item) => {
+
+    if( item.type === 'svg' ){
         // download SVG QRcode
-        console.log('download', btn.id)
+        console.log('download', item.id)
         setTimeout( () => {
             const svg = document.getElementById("rhombus");
             const base64doc = btoa(unescape(encodeURIComponent(svg.outerHTML)));
@@ -124,11 +135,12 @@ const download = (btn) => {
             a.href = 'data:image/svg+xml;base64,' + base64doc;
             a.dispatchEvent(e);
         }, 10)
-    } else if ( btn.type === 'png' ){
+    } else if ( item.type === 'png' ){
         setTimeout( () => {
-            console.log('download', btn.id)
+            console.log('download', item.id)
             const canvas = document.getElementById("canvas");
-            const dataURL = canvas.toDataURL('image/png');
+            const dataURL = qrCodeDownload.value;
+            // const dataURL = canvas.toDataURL('image/png');
             const a = document.createElement('a');
             const my_evt = new MouseEvent('click');
             a.download = 'QRcode.png';
@@ -142,76 +154,5 @@ const download = (btn) => {
 
 </script>
 
-<template>
-    <Wrapper class="home">
-        <template #body>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="mb-4">Create your own QR code in seconds</h2>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 col-md-10 d-grid grid-md-2 mx-auto">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <form class="form" @submit.prevent>
-                                        <div class="form-field mb-1">
-                                            <span v-if="errorValidation.active" class="errorMsg">Invalid URL</span>
-                                            <input 
-                                                type="text" 
-                                                id="url"
-                                                placeholder=""
-                                                autocomplete="url" 
-                                                v-model="qrCodeUrl"
-                                                @focus="onFocus" @blur="onBlur"
-                                                :class="['', isFocused ? 'focused' : '', errorValidation.active ? 'error' : '']"
-                                            />
-                                            <label :class="['', isFocused ? 'focused' : '', errorValidation.active ? 'error' : '']">Enter your website link</label>
-                                            <!-- <span v-if="errorValidation.active" v-html="errorValidation.msg" class=""></span> -->
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 mb-4">
-                                                <h5 class="clr-copy">www.example.com</h5>
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div class="form-field">
-                                            <button class="btn btn-submit" @click="createQRCode()">
-                                                Create QR Code
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col" >
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <!-- <h3 v-html="qrCodeUrlName"></h3> -->
-
-                                    <div class="qrcode">
-                                        <img v-if="!qrCodeDownload" src="@/assets/qrcode.png" />
-                                        <div v-if="qrCodeImage" id="rhombus" v-html="qrCodeImage"></div>
-                                        <canvas id="canvas"></canvas>
-                                    </div>
-                                </div>
-
-                                <div class="col-12" v-if="qrCodeDownload">
-                                    <button v-for="(btn, index) in buttons" :key="index" :id="btn.id" :class="['btn', btn.class]" @click="download(btn)">
-                                        <label v-html="btn.html"></label>
-                                    </button> 
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Wrapper>
-</template>
-
+<template src="./Home.html" />
+<!-- <style src="./Home.scss" /> -->
