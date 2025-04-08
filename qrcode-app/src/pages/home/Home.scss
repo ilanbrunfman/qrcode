@@ -3,6 +3,11 @@
 .home{
     // background-color: pink;
 
+    .title{ 
+        font-size: clamp(20px, 4vw, 28px);
+        font-weight: bold;
+    }
+
     .form{
         &-field{
             position: relative;

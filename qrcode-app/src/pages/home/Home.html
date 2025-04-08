@@ -6,7 +6,7 @@
                 <div v-if="!qrCodeImage" class="row">
 
                     <div class="col-12 col-md-8 mx-auto">
-                        <h2 class="mb-4 text-center">Create your own QR code in seconds</h2>
+                        <h2 class="title mb-4 text-center">Create your own QR code in seconds</h2>
                         <form class="form" @submit.prevent>
                             <div :class="['form-field mb-1 d-flex justify-content-between', errorValidation.active ? 'error' : '']">
                                 <span v-if="errorValidation.active" class="errorMsg">Invalid URL</span>
@@ -45,7 +45,7 @@
                 <div v-else class="row">
                     <div class="col-12 col-md-8 mx-auto">
                         <div v-if="qrCodeImage" class="showcase-qrcode mb-2" id="rhombus" v-html="qrCodeImage"></div>
-                        <h2 class="mb-4 text-center" v-html="qrCodeUrl"></h2>
+                        <h2 class="title mb-4 text-center" v-html="qrCodeUrl"></h2>
                     </div>
                     <div class="col-12 col-md-8 mx-auto mb-3" v-if="qrCodeDownload">
                         <div class="items">
